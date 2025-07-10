@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Nguoi;
+package Nguoi.Entity;
 
 
 import java.time.LocalDate;
@@ -16,12 +16,12 @@ public class Person {
     private String name;
     private LocalDate birth;
     private String address;
-    private double height;
-    private double weight;
+    private float height;
+    private float weight;
     public Person(){
 
     }
-    public Person(int id, String name, LocalDate birth, String address, double height, double weight) {
+    public Person(int id, String name, LocalDate birth, String address, float height, float weight) {
         this.id = nextId++;
         this.name = name;
         this.birth = birth;
@@ -64,19 +64,19 @@ public class Person {
         this.address = address;
     }
 
-    public double getHeight() {
+    public float getHeight() {
         return height;
     }
 
-    public void setHeight(double height) {
+    public void setHeight(float height) {
         this.height = height;
     }
 
-    public double getWeight() {
+    public float getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(float weight) {
         this.weight = weight;
     }
 

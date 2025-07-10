@@ -1,4 +1,0 @@
-Thong tin sinh vien bao gom:   id=1, name=nguyên đình hưng, birth=2004-12-12, address=nghệ an, height=169.0, weight=60.0 
-idStudent=22d1920361, university=thuon ma, startYear=1996, gpa=9.0, Performance=Xuất sắc
-Thong tin sinh vien bao gom:   id=2, name=nguyen đinnh hùng, birth=2004-11-12, address=hà tinĩnh, height=170.0, weight=65.0 
-idStudent=22d1920356, university=thương mạ, startYear=1998, gpa=9.0, Performance=Xuất sắc

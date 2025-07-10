@@ -1,21 +1,25 @@
-package Nguoi;
+package Nguoi.Service;
+
+import Nguoi.Entity.GpaScale;
+import Nguoi.Entity.Student;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class ManagerStudent {
-    public static final int MAX_STUDENTS = 15;
-    public static Student[] students = new Student[MAX_STUDENTS];
+    public final int MAX_STUDENTS = 15;
+    public Student[] students = new Student[MAX_STUDENTS];
 
 
-    public static int studentCount = 0;
+    public int studentCount = 0;
     Scanner sc = new Scanner(System.in);
 
-    private static boolean isStudentIdExists(String id) {
+    private boolean isStudentIdExists(String id) {
         for (int i = 0; i < studentCount; i++) {
             // Đảm bảo phần tử mảng không null trước khi truy cập
             if (students[i] != null && students[i].getIdStudent().equals(id)) {
@@ -25,7 +29,7 @@ public class ManagerStudent {
         return false; // ID chưa tồn tại
     }
 
-    public static void addStudent(Student student) {
+    public void addStudent(Student student) {
         if (studentCount >= MAX_STUDENTS) {
             System.out.println("Không thể thêm sinh viên mới. Đã đủ số lượng.");
             return;
@@ -34,10 +38,7 @@ public class ManagerStudent {
 
     }
 
-    static {
-    }
-
-    public static String validateStudentId(Scanner sc) {
+    public String validateStudentId(Scanner sc) {
         while (true) {
             try {
 
@@ -58,7 +59,7 @@ public class ManagerStudent {
         }
     }
 
-    public static String validateUniversity(Scanner sc) {
+    public String validateUniversity(Scanner sc) {
         while (true) {
             try {
 
@@ -79,7 +80,7 @@ public class ManagerStudent {
         }
     }
 
-    public static int validateStartYear(Scanner sc) {
+    public int validateStartYear(Scanner sc) {
         while (true) {
             try {
 
@@ -99,11 +100,11 @@ public class ManagerStudent {
         }
     }
 
-    public static double validateGpa(Scanner sc) {
+    public float validateGpa(Scanner sc) {
         while (true) {
             try {
                 System.out.println("Nhập điểm GPA (0.0 - 10.0): ");
-                double gpa = Double.parseDouble(sc.nextLine());
+                float gpa = Float.parseFloat(sc.nextLine());
                 if (gpa < 0.0 || gpa > 10.0) {
                     System.out.println("Điểm GPA phải trong khoảng từ 0.0 đến 10.0. Vui lòng nhập lại.");
 
@@ -117,7 +118,7 @@ public class ManagerStudent {
         }
     }
 
-    public static String validateName(Scanner sc) {
+    public String validateName(Scanner sc) {
         while (true) {
             try {
                 System.out.println("Nhập tên (dưới 100 ký tự): ");
@@ -136,7 +137,7 @@ public class ManagerStudent {
         }
     }
 
-    public static LocalDate validateBirth(Scanner sc) {
+    public LocalDate validateBirth(Scanner sc) {
         while (true) {
             try {
                 System.out.println("Nhập ngày sinh (YYYY-MM-DD): ");
@@ -154,7 +155,7 @@ public class ManagerStudent {
         }
     }
 
-    public static String validateAddress(Scanner sc) {
+    public String validateAddress(Scanner sc) {
         while (true) {
             try {
                 System.out.println("Nhập địa chỉ (dưới 300 ký tự): ");
@@ -169,15 +170,16 @@ public class ManagerStudent {
                 System.out.println("Lỗi: " + e.getMessage());
                 System.out.println("Vui lòng nhập lại địa chỉ.");
                 String address = sc.nextLine();
+
             }
         }
     }
 
-    public static double validateHeight(Scanner sc) {
+    public float validateHeight(Scanner sc) {
         while (true) {
             try {
                 System.out.println("Nhập chiều cao (50.0 - 300.0 cm): ");
-                double height = Double.parseDouble(sc.nextLine());
+                float height = Float.parseFloat(sc.nextLine());
                 if (height < 50.0 || height > 300.0) {
                     System.out.println("Chiều cao phải trong khoảng từ 50.0 đến 300.0 cm. Vui lòng nhập lại.");
 
@@ -187,16 +189,16 @@ public class ManagerStudent {
             } catch (NumberFormatException e) {
                 System.out.println("Lỗi: " + e.getMessage());
                 System.out.println("Vui lòng nhập lại chiều cao.");
-                double height = Double.parseDouble(sc.nextLine());
+                float height = Float.parseFloat(sc.nextLine());
             }
         }
     }
 
-    public static double validateWeight(Scanner sc) {
+    public float validateWeight(Scanner sc) {
         while (true) {
             try {
                 System.out.println("Nhập cân nặng (5.0 - 1000.0 kg): ");
-                double weight = Double.parseDouble(sc.nextLine());
+                float weight = Float.parseFloat(sc.nextLine());
                 if (weight < 5.0 || weight > 1000.0) {
                     System.out.println("Cân nặng phải trong khoảng từ 5.0 đến 1000.0 kg. Vui lòng nhập lại.");
 
@@ -211,16 +213,16 @@ public class ManagerStudent {
         }
     }
 
-    public static void percentageOfPerformance() {
+    public void percentageOfPerformance() {
 
 
         // Tính phần trăm sinh viên đạt từng loại GPA
         String[] performanceTypes = {"Xuất sắc", "Giỏi", "Khá", "Trung bình", "Yếu", "Kém"};
-        Double[] performancePercentages = new Double[6];
+        Float[] performancePercentages = new Float[6];
         int[] performanceCount = new int[6];
         for (int i = 0; i < studentCount; i++) {
             if (students[i] != null) {
-                double gpa = students[i].getGpa();
+                float gpa = students[i].getGpa();
                 if (gpa >= 9.0) {
                     performanceCount[0]++;
                 } else if (gpa >= 7.5) {
@@ -237,12 +239,12 @@ public class ManagerStudent {
             }
         }
         for (int i = 0; i < 6; i++) {
-            performancePercentages[i] = performanceCount[i] * 100.0 / studentCount;
+            performancePercentages[i] = (float) (performanceCount[i] * 100.0 / studentCount);
         }
         for (int i = 0; i < 5; i++) {
             for (int j = i + 1; j < 6; j++) {
                 if (performancePercentages[i] < performancePercentages[j]) {
-                    double tempPercentage = performancePercentages[i];
+                    float tempPercentage = performancePercentages[i];
                     performancePercentages[i] = performancePercentages[j];
                     performancePercentages[j] = tempPercentage;
                     String tempType = performanceTypes[i];
@@ -260,14 +262,15 @@ public class ManagerStudent {
 
 
     }
-    public static void gpaDistributionByRange(){
+
+    public void gpaDistributionByRange() {
         Map<String, Integer> gpaRanges = new LinkedHashMap<>();
-        for(int i = 0; i < 10; i++){
-            if(students[i] != null){
-                double gpa = students[i].getGpa();
-                int range=(int) gpa;
+        for (int i = 0; i < 10; i++) {
+            if (students[i] != null) {
+                float gpa = students[i].getGpa();
+                int range = (int) gpa;
                 String rangeKey;
-                if (range >= 0 && range <9 ) {
+                if (range >= 0 && range < 9) {
                     rangeKey = range + " - " + (range + 1);
                 } else {
                     rangeKey = "9 - 10";
@@ -276,35 +279,56 @@ public class ManagerStudent {
 
             }
         }
-        for(Map.Entry<String, Integer> entry : gpaRanges.entrySet()){//trả về 1 tập hợp các Map.Entry. Mỗi Entry đại diện cho một cặp khóa-giá trị trong Map.
+        for (Map.Entry<String, Integer> entry : gpaRanges.entrySet()) {//trả về 1 tập hợp các Map.Entry. Mỗi Entry đại diện cho một cặp khóa-giá trị trong Map.
             String range = entry.getKey();
             int count = entry.getValue();
-            double percentage = (count * 100.0) / studentCount;
+            float percentage = (float) ((count * 100.0) / studentCount);
             System.out.printf("%s: %.2f%%", range, percentage);
         }
     }
-    public static void printStdentByPerformance(String performance) {
+
+    public void printStdentByPerformance(String performance) {
         int found = 0;
         for (int i = 0; i < studentCount; i++) {
-            if (students[i] != null && students[i].getPerformance().equalsIgnoreCase(performance)) {//hàm equalsIgnoreCase() so sánh hai chuỗi mà không phân biệt chữ hoa chữ thường
+            if (students[i] != null && GpaScale.getPerformance(students[i].getGpa()).equalsIgnoreCase(performance)) {//hàm equalsIgnoreCase() so sánh hai chuỗi mà không phân biệt chữ hoa chữ thường
                 System.out.println(students[i]);
                 found = 1;
             }
         }
-        if (found==0) {
+        if (found == 0) {
             System.out.println("Không có sinh viên nào đạt loại " + performance);
         }
     }
-    public static void saveStudentsToFile(String fileName) {
+
+    public void saveStudentsToFile(String fileName) {
         try (FileWriter writer = new FileWriter(fileName)) {
+            // Ghi dòng tiêu đề cột
+            writer.write("idStudent,university,startYear,gpa,id,name,birth,address,height,weight,performance\n");
+
+            // Ghi từng sinh viên
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             for (int i = 0; i < studentCount; i++) {
-                if (students[i] != null) {
-                    writer.write(students[i].toString() + "\n");
+                Student s = students[i];
+                if (s != null) {
+                    String line = String.format("%s,%s,%d,%.2f,%d,%s,%s,%s,%.2f,%.2f,%s\n",
+                            s.getIdStudent(),
+                            s.getUniversity(),
+                            s.getStartYear(),
+                            s.getGpa(),
+                            s.getId(),
+                            s.getName(),
+                            s.getBirth().format(formatter),
+                            s.getAddress(),
+                            s.getHeight(),
+                            s.getWeight(),
+                            GpaScale.getPerformance(s.getGpa())
+                    );
+                    writer.write(line);
                 }
             }
-            System.out.println("Dữ liệu sinh viên đã được lưu vào tệp " + fileName);
+            System.out.println("Student data saved successfully to " + fileName);
         } catch (IOException e) {
-            System.out.println("Lỗi khi lưu dữ liệu: " + e.getMessage());
+            System.out.println("An error occurred while saving student data: " + e.getMessage());
         }
     }
 }
